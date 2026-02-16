@@ -34,7 +34,6 @@ Run these commands from the root directory:
 | `npm run dev:api`    | Start only the NestJS backend                          |
 | `npm run dev:worker` | Start only the Temporal worker                         |
 | `npm run build`      | Build all packages and apps                            |
-| `npm run lint`       | Lint the entire workspace                              |
 
 ## ⚙️ Temporal.io Configuration (Placeholders)
 
