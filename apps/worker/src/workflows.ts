@@ -30,8 +30,6 @@ export async function cadenceWorkflow(params: {
     steps = newSteps;
     stepsVersion++;
 
-    // Update rules:
-    // 3. If new steps length <= currentStepIndex, mark workflow COMPLETED.
     if (steps.length <= currentStepIndex) {
       status = "COMPLETED";
     }
@@ -49,11 +47,14 @@ export async function cadenceWorkflow(params: {
   while (currentStepIndex < steps.length && status === "RUNNING") {
     const step = steps[currentStepIndex];
 
-    if (step.type === "SEND_EMAIL") {
-      await sendEmail(step.subject, step.body);
-    } else if (step.type === "WAIT") {
-      console.log(`Waiting ${step.seconds} seconds`);
-      await sleep(step.seconds * 1000);
+    switch (step.type) {
+      case "SEND_EMAIL":
+        await sendEmail(step.subject, step.body);
+        break;
+      case "WAIT":
+        console.log(`Waiting ${step.seconds} seconds`);
+        await sleep(step.seconds * 1000);
+        break;
     }
 
     currentStepIndex++;
